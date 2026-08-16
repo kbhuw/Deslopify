@@ -4,7 +4,7 @@ import test from "node:test";
 
 const root = new URL("../", import.meta.url);
 
-test("the rewrite engine keeps the API key server-side and bans long dashes", async () => {
+test("the rewrite engine keeps the API key server-side and only uses a free model", async () => {
   const [route, prompt, page] = await Promise.all([
     readFile(new URL("app/api/deslopify/route.ts", root), "utf8"),
     readFile(new URL("lib/deslopify-prompt.ts", root), "utf8"),
@@ -12,7 +12,9 @@ test("the rewrite engine keeps the API key server-side and bans long dashes", as
   ]);
 
   assert.match(route, /process\.env\.OPENROUTER_API_KEY/);
-  assert.match(route, /anthropic\/claude-haiku-4\.5/);
+  assert.match(route, /openai\/gpt-oss-20b:free/);
+  assert.match(route, /allow_fallbacks: false/);
+  assert.doesNotMatch(route, /anthropic\/claude-haiku-4\.5/);
   assert.match(route, /MAX_OUTPUT_TOKENS = 2048/);
   assert.match(route, /replaceAll\("—", " - "\)/);
   assert.match(prompt, /HUMAN_STYLE_EXAMPLES/);

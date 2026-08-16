@@ -5,7 +5,9 @@ import {
   MAX_INPUT_CHARACTERS,
 } from "@/lib/deslopify-prompt";
 
-const MODEL = "anthropic/claude-haiku-4.5";
+// The `:free` suffix is intentional: never substitute a paid model if the
+// zero-cost route is unavailable.
+const MODEL = "openai/gpt-oss-20b:free";
 const MAX_OUTPUT_TOKENS = 2048;
 const GENERIC_WRAPPER =
   /\b(not just|more than just|not only|go(?:es)? beyond|beyond\s+\w+|a reminder|matters culturally|has a place|plays a real role|serves as)\b/i;
@@ -40,6 +42,9 @@ async function askEditor(apiKey: string, messages: ChatMessage[]): Promise<strin
       model: MODEL,
       max_tokens: MAX_OUTPUT_TOKENS,
       temperature: 0.6,
+      provider: {
+        allow_fallbacks: false,
+      },
     }),
   });
 
