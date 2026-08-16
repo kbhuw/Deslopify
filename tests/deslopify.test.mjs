@@ -12,9 +12,15 @@ test("the rewrite engine keeps the API key server-side and bans long dashes", as
   ]);
 
   assert.match(route, /process\.env\.OPENROUTER_API_KEY/);
-  assert.match(route, /google\/gemini-2\.5-flash-lite/);
+  assert.match(route, /anthropic\/claude-haiku-4\.5/);
+  assert.match(route, /MAX_OUTPUT_TOKENS = 2048/);
   assert.match(route, /replaceAll\("—", " - "\)/);
-  assert.match(prompt, /Do not invent anecdotes/);
+  assert.match(prompt, /HUMAN_STYLE_EXAMPLES/);
+  assert.match(prompt, /The meeting was useful because we finally stopped talking about the plan/);
+  assert.match(prompt, /Never invent anecdotes/);
+  assert.match(prompt, /DESLOPIFY_REFINEMENT_INSTRUCTIONS/);
+  assert.match(prompt, /Never use these wrappers/);
+  assert.match(prompt, /The cheap suitcase survived exactly one trip/);
   assert.match(prompt, /Return only the revised text/);
   assert.doesNotMatch(page, /OPENAI_API_KEY/);
 });
