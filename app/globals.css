@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #f6f3eb;
+  --ink: #171614;
+  --muted: #6d6961;
+  --line: #cfcbc2;
+  --acid: #dfff1f;
+  --orange: #ff5a36;
+}
+
+@theme inline {
+  --color-background: var(--paper);
+  --color-foreground: var(--ink);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* { box-sizing: border-box; }
+html, body { min-height: 100%; }
+body {
+  margin: 0;
+  background: radial-gradient(circle at 88% 8%, rgba(223, 255, 31, 0.55), transparent 18rem), var(--paper);
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+}
+button, textarea { font: inherit; }
+
+.shell { width: min(1160px, calc(100% - 48px)); margin: 0 auto; padding: 72px 0 48px; }
+.hero { max-width: 720px; margin-bottom: 56px; }
+.eyebrow { margin: 0 0 16px; color: var(--orange); font-family: var(--font-geist-mono), monospace; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; }
+h1 { max-width: 680px; margin: 0; font-family: var(--font-geist-sans), Arial, sans-serif; font-size: clamp(3.1rem, 8vw, 6.5rem); font-weight: 700; letter-spacing: -0.078em; line-height: 0.91; }
+.lede { max-width: 520px; margin: 24px 0 0; color: var(--muted); font-size: 1.08rem; line-height: 1.5; }
+
+.workspace { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid var(--ink); background: var(--ink); gap: 1px; }
+.editor-column { display: flex; min-height: 390px; flex-direction: column; background: #fffdf8; }
+.output-column { background: #eeece5; }
+.panel-heading { display: flex; align-items: baseline; justify-content: space-between; padding: 17px 18px 14px; border-bottom: 1px solid var(--line); }
+.panel-heading label { font-family: var(--font-geist-mono), monospace; font-size: 0.74rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+.panel-heading span, .hint, .actions p { color: var(--muted); font-size: 0.76rem; }
+.editor { min-height: 280px; width: 100%; flex: 1; resize: vertical; border: 0; outline: none; padding: 20px 18px; background: transparent; color: var(--ink); font-size: 1rem; line-height: 1.6; }
+.editor::placeholder { color: #a8a49a; }
+.output { color: #5c584f; }
+.hint { margin: 0; padding: 0 18px 18px; }
+.input-footer { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.text-button { border: 0; padding: 0 18px 18px; background: transparent; color: var(--orange); cursor: pointer; font-family: var(--font-geist-mono), monospace; font-size: 0.72rem; font-weight: 700; }
+.text-button:hover { text-decoration: underline; text-underline-offset: 3px; }
+.actions { display: flex; align-items: center; justify-content: space-between; gap: 22px; padding: 20px 0 56px; }
+.deslopify-button { border: 1px solid var(--ink); padding: 14px 18px; background: var(--acid); color: var(--ink); cursor: pointer; font-family: var(--font-geist-mono), monospace; font-size: 0.9rem; font-weight: 700; transition: transform 160ms ease, box-shadow 160ms ease; }
+.deslopify-button:hover { box-shadow: 4px 4px 0 var(--ink); transform: translate(-2px, -2px); }
+.deslopify-button:disabled { cursor: not-allowed; opacity: 0.45; }
+.deslopify-button:disabled:hover { box-shadow: none; transform: none; }
+.deslopify-button span { display: inline-block; margin-left: 12px; font-size: 1.1rem; }
+.actions p { margin: 0; text-align: right; }
+.error { margin: -36px 0 38px; color: #a7260d; font-size: 0.9rem; }
+.rules { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); padding-top: 18px; }
+.rules p { margin: 0; padding-right: 16px; font-size: 0.88rem; }
+.rules span { display: block; margin-bottom: 7px; color: var(--orange); font-family: var(--font-geist-mono), monospace; font-size: 0.69rem; font-weight: 700; }
+
+@media (max-width: 720px) {
+  .shell { width: min(100% - 28px, 1160px); padding-top: 42px; }
+  .hero { margin-bottom: 36px; }
+  .workspace { grid-template-columns: 1fr; }
+  .editor-column { min-height: 300px; }
+  .actions { align-items: flex-start; flex-direction: column; padding-bottom: 42px; }
+  .actions p { text-align: left; }
+  .rules { grid-template-columns: 1fr; gap: 20px; }
+}
